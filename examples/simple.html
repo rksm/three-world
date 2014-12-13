@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple THREE codeeditor setup</title>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+  </head>
+  <body style="margin:0;">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js"></script>
+    <script type="text/javascript" src="../index.js"></script>
+
+    <script type="text/javascript" >
+      THREE.World.create(document.body, {useOrbitControl: false, useVR: false}, function(err, world) {
+        world.renderer.setClearColor(0x333F47, 1);
+
+        world.camera.position.set(0,0,320);
+
+        var box = new THREE.Mesh(
+          new THREE.BoxGeometry(200, 100, 200, 3,3),
+          new THREE.MeshNormalMaterial({color: 0x00ffff, wireframe: true,side: THREE.DoubleSide}));
+        box.position.set(0,0, 50);
+        world.scene.add(box);
+
+        world.addAnimationCallback("rotate the box", 10/*ms delay*/,function(d) {
+          var rot = Math.PI/(60/d*100);
+          box.rotation.x += rot;
+          box.rotation.y += rot;
+        });
+      });
+    </script>
+
+  </body>
+</html>
