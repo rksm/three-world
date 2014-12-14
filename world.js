@@ -1,4 +1,8 @@
-(function(exports) {
+(function(code) {
+  var exports = typeof module !== "undefined" && module.exports ?
+    module.exports : THREE.World || (THREE.World = {}); /*evil globals...*/
+  code(exports);
+})(function(exports) {
 
   // exports
   exports.create = create;
@@ -33,14 +37,14 @@
       _timedAnimationCallbacks: {}
     }
 
+    world.startLoop               = startLoop.bind(null, world),
+    world.stopLoop                = stopLoop.bind(null, world),
     world.addAnimationCallback    = addAnimationCallback.bind(null, world),
     world.removeAnimationCallback = removeAnimationCallback.bind(null, world),
     world.onResize                = onResize.bind(null, world),
     world.destroy                 = destroy.bind(null, world)
 
-    // Let if fly!
     init(world, domEl, options);
-    animate(world);
 
     thenDo && thenDo(null, world);
     return world;
@@ -147,6 +151,23 @@
     });
   }
 
+  function startLoop(world) {
+    Object.keys(world._timedAnimationCallbacks).forEach(function(name) {
+      var timed = world._timedAnimationCallbacks[name];
+      clearInterval(timed.intervalId);
+      timed.intervalId = setInterval(timed.callback);
+    });
+    animate(world);
+  }
+
+  function stopLoop(world) {
+    cancelAnimationFrame(world.loop);
+    Object.keys(world._timedAnimationCallbacks).forEach(function(name) {
+      var timed = world._timedAnimationCallbacks[name];
+      clearInterval(timed.intervalId);
+    });
+  }
+
   function addAnimationCallback(world, name, intervalTime, fn) {
     if (typeof name === "function") { // called just with anim callback
       fn = name;
@@ -161,6 +182,7 @@
     if (!intervalTime) return world._animationCallbacks[name] = fn;
     var time = Date.now();
     return world._timedAnimationCallbacks[name] = {
+      intervalTime: intervalTime,
       intervalId: setInterval(function() {
         var now = Date.now(), delta = now - time;
         time = now;
@@ -171,7 +193,7 @@
   }
 
   function removeAnimationCallback(world, name) {
-    if (world._animationCallbacks) {
+    if (world._animationCallbacks[name]) {
       delete world._animationCallbacks[name];
     } else {
       var timed = world._timedAnimationCallbacks[name];
@@ -215,4 +237,4 @@
     thenDo && thenDo();
   }
 
-})(THREE.World || (THREE.World = {}));
+});
