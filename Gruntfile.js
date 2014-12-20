@@ -24,6 +24,10 @@ module.exports = function(grunt) {
       "three-world.dev.js": {
         src: ["world.js"],
         dest: "three-world.dev.js"
+      },
+      "three-world-with-tquery.dev.js": {
+        src: ["world.js", "vendor/tquery.js", "lib/tquery-interface.js"],
+        dest: "three-world-with-tquery.dev.js"
       }
     },
 
@@ -35,11 +39,19 @@ module.exports = function(grunt) {
                 + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         files: {"three-world.min.js": "three-world.dev.js"}
+      },
+      "three-world-with-tquery.min.js": {
+        options: {
+          sourceMap: true,
+          banner: '/*! <%= pkg.name %>-v<%= pkg.version %> '
+                + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        },
+        files: {"three-world.min.js": "three-world.dev.js"}
       }
     }
 
   });
 
-  grunt.registerTask('build', ['concat:three-world.dev.js', 'uglify:three-world.min.js']);
+  grunt.registerTask('build', ['concat', 'uglify']);
   
 };
