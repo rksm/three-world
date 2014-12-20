@@ -1,9 +1,12 @@
 ## Scene setup for THREE
 
 Create a THREE "world" -- that is it packages the boilerplate code you usually
-need when setting up a THREE scene, including mouse and keyboard events.
+need when setting up a THREE scene.
+<!--, including mouse and keyboard events.-->
 
-See the [box.html example](examples/box.html).
+Examples:
+  - [box.html](http://robert.kra.hn/try-it/three-world/box.html).
+  - [tquery.html](http://robert.kra.hn/try-it/three-world/tquery.html).
 
 ### API
 

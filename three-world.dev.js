@@ -247,4 +247,4 @@
 
 });
 
-//# sourceMappingURL=three-world.dev-bundle.js.map
+//# sourceMappingURL=three-world.dev.js.map

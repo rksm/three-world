@@ -21,25 +21,25 @@ module.exports = function(grunt) {
     // -=-=-=-=-=-=-=-
     concat: {
       options: {sourceMap: true, sourceMapStyle: 'link', separator: ';\n'},
-      "three-world.dev-bundle.js": {
+      "three-world.dev.js": {
         src: ["world.js"],
-        dest: "three-world.dev-bundle.js"
+        dest: "three-world.dev.js"
       }
     },
 
     uglify: {
-      "three-world.min-bundle.js": {
+      "three-world.min.js": {
         options: {
           sourceMap: true,
           banner: '/*! <%= pkg.name %>-v<%= pkg.version %> '
                 + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-        files: {"three-world.min-bundle.js": "three-world.dev-bundle.js"}
+        files: {"three-world.min.js": "three-world.dev.js"}
       }
     }
 
   });
 
-  grunt.registerTask('build', ['concat:three-world.dev-bundle.js', 'uglify:three-world.min-bundle.js']);
+  grunt.registerTask('build', ['concat:three-world.dev.js', 'uglify:three-world.min.js']);
   
 };
