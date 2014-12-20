@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple THREE codeeditor setup</title>
+  </head>
+  <body style="margin:0;">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/jeromeetienne/tquery/master/build/tquery.js"></script>
+    <script type="text/javascript" src="../three-world.dev.js"></script>
+    <script type="text/javascript" src="../lib/tquery-interface.js"></script>
+
+    <script type="text/javascript" >
+      var world = THREE.World.create(document.body, {useOrbitControl: false, useVR: false}).startLoop();
+      world.renderer.setClearColor(0x333F47, 1);
+      world.camera.position.set(0,0,320);
+
+      var tQueryWorld = setupTQuery(world);
+
+      for (var i = -5; i < 5; i++) {
+        tQuery.createCube().scale(20).position(i*30,0,0).addTo(tQueryWorld);
+      }
+
+      world.addAnimationCallback("highlight the box", 3000,function(d) {
+        tQuery('box').show();
+      });
+      world.addAnimationCallback("rotate the box", 10/*ms delay*/,function(d) {
+        tQuery('box').each(function(b) {
+          var t = Date.now() * 0.00000000000001;
+          var r = Math.random()*10;
+          tQuery(b).rotate(0,r*t,0.2*r*t);
+        });
+      });
+    </script>
+
+  </body>
+</html>
