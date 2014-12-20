@@ -42,6 +42,7 @@
     world.addAnimationCallback    = addAnimationCallback.bind(null, world),
     world.removeAnimationCallback = removeAnimationCallback.bind(null, world),
     world.onResize                = onResize.bind(null, world),
+    world.enterFullScreen         = enterFullScreen.bind(null, world),
     world.destroy                 = destroy.bind(null, world)
 
     init(world, domEl, options);
@@ -84,7 +85,7 @@
         }
     	  world.vr.effect.setSize(options.width, options.height);
         whenHeadmountDisplayReady(world.vr, function() {});
-    	  onResize();
+    	  world.onResize();
       }
     } else {
       r.setSize(options.width, options.height);
@@ -102,7 +103,7 @@
     if (options.useOrbitControl)
       world.orbitControl = new THREE.OrbitControls(camera, r.domElement);
 
-    onResize(world);
+    world.onResize();
   }
 
   // animate is called every once in a while, you can register callbacks
@@ -158,6 +159,7 @@
       timed.intervalId = setInterval(timed.callback);
     });
     animate(world);
+    return world;
   }
 
   function stopLoop(world) {
@@ -166,6 +168,7 @@
       var timed = world._timedAnimationCallbacks[name];
       clearInterval(timed.intervalId);
     });
+    return world;
   }
 
   function addAnimationCallback(world, name, intervalTime, fn) {
@@ -215,6 +218,11 @@
     
     return (obj.children || []).reduce(function(thrash, ea) {
       return thrash.concat(gatherDisposal(ea)); }, thrash);
+  }
+
+  function enterFullScreen(world) {
+    if (world.vr && world.vr.effect) world.vr.effect.setFullScreen(true);
+    else world.renderer.domElement[world.renderer.domElement.mozRequestFullScreen? 'mozRequestFullScreen' : 'webkitRequestFullScreen']();
   }
 
   function destroy(world, thenDo) {

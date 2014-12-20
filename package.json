@@ -1,6 +1,6 @@
 {
   "name": "three-world",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create a THREE \"world\" -- that is it packages the boilerplate code you usually need when setting up a THREE scene, including mouse and keyboard events.",
   "main": "world.js",
   "scripts": {
@@ -9,13 +9,10 @@
   "author": "Robert Krahn",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^1.10.0",
-    "mocha": "*",
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-uglify": "^0.6.0",
-    "grunt-curl": "^2.0.3",
     "load-grunt-tasks": "^1.0.0"
-  }
+  },
   "dependencies": {}
 }

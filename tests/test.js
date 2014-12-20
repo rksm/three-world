@@ -31,20 +31,20 @@ describe('three world', function() {
       world.addAnimationCallback("timed", 10, function() { timedCalls++; });
       setTimeout(function() {
         callsBeforeStop = calls;
-        timedCallsBeforeStop = calls;
+        timedCallsBeforeStop = timedCalls;
         world.stopLoop()
-      }, 20);
+      }, 80);
       setTimeout(function() {
         expect(calls).equals(callsBeforeStop);
         expect(timedCalls).equals(timedCallsBeforeStop);
         world.startLoop();
-      }, 80);
+      }, 180);
       setTimeout(function() {
         expect(calls).to.be.greaterThan(callsBeforeStop);
         expect(timedCalls).to.be.greaterThan(timedCallsBeforeStop);
         world.startLoop();
         done();
-      }, 160);
+      }, 360);
     });
 
     it("schedules named callbacks and removes them", function(done) {
