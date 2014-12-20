@@ -8,9 +8,8 @@
     <script type="text/javascript" src="../world.js"></script>
 
     <script type="text/javascript" >
-      var world = THREE.World.create(document.body, {useOrbitControl: false, useVR: false}).startLoop();;
+      var world = THREE.World.create(document.body, {useOrbitControl: false, useVR: false}).startLoop();
       world.renderer.setClearColor(0x333F47, 1);
-
       world.camera.position.set(0,0,320);
 
       var box = new THREE.Mesh(
@@ -24,7 +23,6 @@
         box.rotation.x += rot;
         box.rotation.y += rot;
       });
-
     </script>
 
   </body>

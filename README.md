@@ -3,7 +3,7 @@
 Create a THREE "world" -- that is it packages the boilerplate code you usually
 need when setting up a THREE scene, including mouse and keyboard events.
 
-See the [simple.html example](examples.simple.html).
+See the [box.html example](examples/box.html).
 
 ### API
 
